@@ -1,7 +1,7 @@
 GridHelper
 ==========
 
-Javascript small library for creating dynamic tables with javascript.
+Small Javascript library for creating dynamic tables with javascript.
 We need the leatest [Prototype](http://prototypejs.org/) library.
 
 Example:
@@ -45,10 +45,43 @@ var grid = new GridHelper({
 				new Input({type:'text',id:'valor','value-property':'valor'}),
 				new Input({type:'text',id:'nombre','value-property':'name'})
 				],
-		tbody	:	{id:'id-tbody-example'}
+		tbody	:	{id:'id-tbody-example'},
+		,
+		noDataLabel	:	{
+	    		label		:	'No existe informacion.',
+	    		properties	:	{align:'center'}
+	    	}
 	});
 
 grid.setDataContent(data);
 
 grid.renderGrid('tableContainer');
+
 ```
+Delete a specific row
+```javascript
+grid.deleteRow(index)
+```
+
+Add a new row, only pass a new object
+```javascript
+grid.addRow({id:90, ...});
+```
+
+Add formatters to add extra functionality to your output columns, only GenericElements (div's) by now.
+```javascript
+/**Must receive only 1 parameter that is the value to be format*/
+GridTools.registerFormatter('currencyFormater', function(value){
+	return '$'+format("#,##0.####", value);
+});
+```
+In your body definition add the formatter-name property with the formatter name:
+```javascript
+body:[
+	new GenericElement({'value-property':'id', 'formatter-name':'currencyFormater'})
+]
+```
+
+
+
+
