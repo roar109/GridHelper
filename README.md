@@ -5,61 +5,60 @@ Small Javascript library for creating dynamic tables with javascript.
 We need the leatest [Prototype](http://prototypejs.org/) library.
 
 Example:
+Add a container like this
 ```html
 <div id="tableContainer"></div>
 ```
-
+Javascript code for the initialization and generation of the grid.
 ```javascript
 var data = [
-		{id:'a',name:'alan',valor:'987'},
-		{id:'b',name:'bean',valor:'98798'},
-		{id:'c',name:'coco',valor:'6545456'}
+		{id:'a',name:'gonzo', valor:'12645'},
+		{id:'b',name:'jean',  valor:'1247'},
+		{id:'c',name:'chisto',valor:'6589'}
 	];
 /**
- * Param 1 Propiedades de header y row de titulo
- * Param 2 definicion de contenido de TD
+ * Param 1 HTML attributes for the thead and tr generated fot the header.
+ * Param 2 Definition of the titles itselfs.
  */
-var titles = new Titles({
-				headerProperties : {id : 'idHeader'},
-				rowProperties :	{id : 'rowHeader'}
-			},	/**El orden importa*/
+var titles = new Titles(null ,	
+			/**Order matters*/
 			[	new GenericElement({value:'ID'},{align:'center'}),
 				new GenericElement({value:'VALOR'},{align:'center'}),
 				new GenericElement({value:'NOMBRE'})
 		      	]);
 /*
- * Configuracion de titulos y contenido
- * @param properties : Objeto que contiene la configuracion, posibles opciones:
- * - titles (requerido, de tipo Titles) Defincion del header.
- *  - table (opcional) Atributos que tendra la tabla generada por el GridHelper
- *  - body (requerido) Definicion de las columnas y como se manejaran sus respectivos valores.
- *  - tbody (opcional) Atributos que tendra el tbody generado por el GridHelper
- *  - noDataLabel (opcional) (label:String,properties:{htmlAttributes}) 
- *    Atributo para mostrar un label de no hay informacion cuando se tiene el data vacio.
+ * Content configuration:
+ * @param properties : Main object that will store all the configuration, available options:
+ * - titles (required, type Titles) Define the header of the table.
+ *  - table (optional) HTML attributes that the table generated will have.
+ *  - body (required) Column definition and how the values will be handle.
+ *  - tbody (optional) HTML attributes that the TBODY element will have.
+ *  - noDataLabel (optional) (label : String, properties : {htmlAttributes}) 
+ *     If the table have no data, it will display this label.
  * */
 var grid = new GridHelper({
 		table	:	{	
-					id		:	'idTabla',
+					id	:	'idTable',
 					border	:	'1',
-					'class'	:	'pure-table pure-table-bordered',
+					'class'	:	'awesome-class-for-table',
 					'width'	:	'100%',
 					align	:	'center'
 				},
 		titles	: titles,
-		body	: [	/**El orden importa*/
-				new GenericElement({'value-property':'id'},	{align:'center'}),
-				new Input({type:'text',id:'valor','value-property':'valor'}),
-				new Input({type:'text',id:'nombre','value-property':'name'})
-				],
-		tbody	:	{id:'id-tbody-example'},
+		body	: [	/**Order matters*/
+				new GenericElement({'value-property':'id'}, {align:'center'}),
+				new Input({type:'text', id:'valor',  'value-property':'valor'}),
+				new Input({type:'text', id:'nombre', 'value-property':'name'})
+			    ],
 		noDataLabel	:	{
-	    		label		:	'No existe informacion.',
+	    		label		:	'No Data available.',
 	    		properties	:	{align:'center'}
 	    	}
 	});
 
+/**Set the array of data that will generate the body of your table*/
 grid.setDataContent(data);
-
+/**Render the table, here is where the table is generated*/
 grid.renderGrid('tableContainer');
 
 ```
@@ -70,7 +69,7 @@ grid.deleteRow(index)
 
 Add a new row, only pass a new object
 ```javascript
-grid.addRow({id:90, ...});
+grid.addRow({id:'d',name:'john',valor:'6695'});
 ```
 
 Add formatters to add extra functionality to your output columns, only GenericElements (div's) by now.
