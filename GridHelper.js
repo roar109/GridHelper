@@ -150,7 +150,6 @@ var GridHelper = Class.create({
 	renderGrid	: function(idContainer){
 		this.idContainer = idContainer;
 		var table_ = GridTools.createElementWithProperties('table', this.tableProperties);
-		var body_ = null;
 		/**Obtiene titulos generados*/
 		if(this.titleGeneratedContent){
 			Element.insert(table_, this.titleGeneratedContent);
@@ -188,6 +187,7 @@ var GridHelper = Class.create({
 		});
 		Element.insert(this.bodyGeneratedContent, tr_);
 		this.bodyDataContent.push(rowObject);
+		this.renderGrid(this.idContainer);
 	},
 	/**
 	 * @return HTML#Element con el label indicado.
