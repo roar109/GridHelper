@@ -1,5 +1,6 @@
 /**
  * Clase generica, se utilice este patron para crear mas componentes.
+ * https://github.com/roar109/GridHelper
  * */
 var GenericElement = Class.create({
 	initialize: function(attributes, tdProperties){
@@ -66,7 +67,7 @@ var Titles = Class.create({
 		Element.insert(thead_, tr_);
 		this.columnHeaderDefinitionList.each(function(title){
 			if(title.classType == 'ELEMENT'){
-				td_ = GridTools.createElementWithProperties('td', title.tdProperties);
+				td_ = GridTools.createElementWithProperties('th', title.tdProperties);
 				Element.insert(td_, {
 					bottom	:	GridTools.createElementWithProperties(title.getTag(), title.attributes)
 				});
@@ -228,7 +229,7 @@ var GridHelper = Class.create({
  * Componente de utilidades varias.
  * */
 var GridTools = {
-	loggerActivated	:	true,
+	loggerActivated	:	false,
 	formaters	:	{},
 	/**
 	 * Metodo de utilidades para logeo de javascript.
