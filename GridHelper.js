@@ -126,7 +126,7 @@ var GridHelper = Class.create({
 			}
 		}else{
 			this.bodyDataContent.each(function(rowData){
-				tr_ = GridTools.createElementWithProperties('tr', {'row-index':n});
+				tr_ = GridTools.createElementWithProperties('tr', this_.rowFormat(n));
 				this_.bodyDefinition.each(function(fieldDefinition){
 					if(fieldDefinition.classType == 'ELEMENT'){
 						td_ = GridTools.createElementWithProperties('td', fieldDefinition.tdProperties);
@@ -223,6 +223,9 @@ var GridHelper = Class.create({
 		});
 		this.bodyDataContent = this.bodyDataContent.compact();
 		this.renderGrid(this.idContainer);
+	},
+	rowFormat	: function(index){
+		return {'row-index':index};
 	}
 });
 /**
