@@ -12,9 +12,9 @@ Add a container like this
 Javascript code for the initialization and generation of the grid.
 ```javascript
 var data = [
-		{id:'a',name:'gonzo', valor:'12645'},
-		{id:'b',name:'jean',  valor:'1247'},
-		{id:'c',name:'chisto',valor:'6589'}
+		{id:'a',name:'gonzo', value:'12645'},
+		{id:'b',name:'jean',  value:'1247'},
+		{id:'c',name:'chisto',value:'6589'}
 	];
 /**
  * Param 1 HTML attributes for the thead and tr generated fot the header.
@@ -23,8 +23,8 @@ var data = [
 var titles = new Titles(null ,	
 			/**Order matters*/
 			[	new GenericElement({value:'ID'},{align:'center'}),
-				new GenericElement({value:'VALOR'},{align:'center'}),
-				new GenericElement({value:'NOMBRE'})
+				new GenericElement({value:'VALUE'},{align:'center'}),
+				new GenericElement({value:'NAME'})
 		      	]);
 /*
  * Content configuration:
@@ -47,8 +47,8 @@ var grid = new GridHelper({
 		titles	: titles,
 		body	: [	/**Order matters*/
 				new GenericElement({'value-property':'id'}, {align:'center'}),
-				new Input({type:'text', id:'valor',  'value-property':'valor'}),
-				new Input({type:'text', id:'nombre', 'value-property':'name'})
+				new Input({type:'text', id:'value',  'value-property':'value'}),
+				new Input({type:'text', id:'name', 'value-property':'name'})
 			    ],
 		noDataLabel	:	{
 	    		label		:	'No Data available.',
@@ -69,7 +69,7 @@ grid.deleteRow(index)
 
 Add a new row, only pass a new object
 ```javascript
-grid.addRow({id:'d',name:'john',valor:'6695'});
+grid.addRow({id:'d',name:'john',value:'6695'});
 ```
 
 Add formatters to add extra functionality to your output columns, only GenericElements (div's) by now.
