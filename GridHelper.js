@@ -40,7 +40,15 @@ var Image = Class.create(GenericElement, {
 	    this.classType = 'ELEMENT';
 	}	
 });
-
+var Link = Class.create(GenericElement, {
+	initialize: function(attributes, tdProperties){
+	    this.attributes = attributes||{};
+	    this.tdProperties = tdProperties || {};
+	    this.tag = 'a';
+	    this.type = null;
+	    this.classType = 'ELEMENT';
+	}	
+});
 /**
  * Clase que Titles que crea un patron de como se formara el titulo de la tabla.
  * */
@@ -132,6 +140,7 @@ var GridHelper = Class.create({
 						td_ = GridTools.createElementWithProperties('td', fieldDefinition.tdProperties);
 						element_ = GridTools.createElementWithProperties(fieldDefinition.getTag(), fieldDefinition.attributes, rowData, fieldDefinition);
 						element_.id = GridTools.createId(element_.id, n);
+						element_.name = GridTools.createId(element_.name, n);
 						Element.insert(td_, {
 							bottom	:	element_
 						});
@@ -164,7 +173,7 @@ var GridHelper = Class.create({
 		if($(idContainer)){
 			$(idContainer).innerHTML = '';
 			$(idContainer).update(table_);
-			 GridTools.logger('Table generated');
+			 GridTools.logger('Table generated to id '+idContainer);
 		}
 	},
 	/**
@@ -180,6 +189,7 @@ var GridHelper = Class.create({
 				var td_ = GridTools.createElementWithProperties('td', fieldDefinition.tdProperties);
 				var element_ = GridTools.createElementWithProperties(fieldDefinition.getTag(), fieldDefinition.attributes, rowObject);
 				element_.id = GridTools.createId(element_.id, n);
+				element_.name = GridTools.createId(element_.name, n);
 				Element.insert(td_, {
 					bottom	:	element_
 				});
@@ -253,7 +263,7 @@ var GridTools = {
 	createElementWithProperties	: function(elemementType, properties, objectToGetValue, propertyDefinition){
 		var valuePropName = 'value', valuePropyName = 'value-property', formaterNameProperty = 'formatter-name';
 		var el_ = new Element(elemementType, properties);
-		if('div' == elemementType || 'button' == elemementType){
+		if('div' == elemementType || 'button' == elemementType || 'a' == elemementType){
 			/**Si tiene la propiedad de formater-name busca un formateador para el valor con ese nombre. 
 			 * Se registra en GridTools.registerFormatter(name, function)*/
 			var isFormaterPresent = (properties[formaterNameProperty])?true:false;
@@ -263,7 +273,7 @@ var GridTools = {
 			}
 			el_.removeAttribute(formaterNameProperty);
 			el_.removeAttribute(valuePropName);
-			el_.innerHTML = value;
+			el_.innerHTML = unescape(value);
 		}else {
 			if(objectToGetValue){
 				/**From properties we get the value of the property 'value-property' and then get that property from objectToGetValue*/
