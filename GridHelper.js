@@ -106,6 +106,7 @@ var GridHelper = Class.create({
 	    this.bodyDefinition = this.properties.body || [];
 	    this.tbodyProperties = this.properties.tbody || {};
 	    this.noDataLabel = this.properties.noDataLabel || null;
+	    this.caption	=	this.properties.caption || null;
 	    this.classType = 'HELPER';
 	    if(this.titles.classType = 'TITLES'){
 	    	this.titleGeneratedContent = this.properties.titles.getTitlesElement();
@@ -169,6 +170,8 @@ var GridHelper = Class.create({
 		if(this.bodyGeneratedContent){
 			Element.insert(table_, {bottom:this.bodyGeneratedContent});
 		}
+		/**Genera Caption*/
+		this.generCaption(table_);
 		/**Generar grid final*/
 		if($(idContainer)){
 			$(idContainer).innerHTML = '';
@@ -236,6 +239,11 @@ var GridHelper = Class.create({
 	},
 	rowFormat	: function(index){
 		return {'row-index':index};
+	},
+	generCaption	: function(table){
+		if(!this.caption)return null;
+		var cap = GridTools.createElementWithProperties('caption', this.caption);
+		$(table).insert({top:cap});
 	}
 });
 /**
@@ -256,14 +264,14 @@ var GridTools = {
 	},
 	/**
 	 * 
-	 * @param elemementType (requerido) tipo de elemento que creara, por ej. 'input', 'button', etc.
+	 * @param elementType (requerido) tipo de elemento que creara, por ej. 'input', 'button', etc.
 	 * @param properties (requerido) objeto que contiene propiedades que contendra el elemento a crear.
 	 * @param objectToGetValue (opcional) objeto de donde se obtendra el valor dictado por la propiedad 'value-property'.
 	 * */
-	createElementWithProperties	: function(elemementType, properties, objectToGetValue, propertyDefinition){
+	createElementWithProperties	: function(elementType, properties, objectToGetValue, propertyDefinition){
 		var valuePropName = 'value', valuePropyName = 'value-property', formaterNameProperty = 'formatter-name';
-		var el_ = new Element(elemementType, properties);
-		if('div' == elemementType || 'button' == elemementType || 'a' == elemementType){
+		var el_ = new Element(elementType, properties);
+		if('div' == elementType || 'button' == elementType || 'a' == elementType || 'caption' == elementType){
 			/**Si tiene la propiedad de formater-name busca un formateador para el valor con ese nombre. 
 			 * Se registra en GridTools.registerFormatter(name, function)*/
 			var isFormaterPresent = (properties[formaterNameProperty])?true:false;

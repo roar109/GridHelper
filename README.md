@@ -53,7 +53,11 @@ var grid = new GridHelper({
 		noDataLabel	:	{
 	    		label		:	'No Data available.',
 	    		properties	:	{align:'center'}
-	    	}
+	    	},
+		caption	:{
+		    	value: "Caption here", 
+		    	align:'center'
+		}
 	});
 
 /**Set the array of data that will generate the body of your table*/
